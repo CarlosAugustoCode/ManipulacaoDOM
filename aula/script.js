@@ -89,8 +89,26 @@ function cadastrarUsuario(dadosUsuario) {
     // Se houver uma lista de usuários no localStorage, carregar isso para a variável listaUsuarios
     if (localStorage.getItem("usuariosCadastrados") != null) {
         listaUsuarios = JSON.parse(localStorage.getItem("usuariosCadastrados"))
-    } 
-        listaUsuarios.push(dadosUsuario) // Adiciona o usuário na lista de usuários
-        localStorage.setItem("usuariosCadastrados", JSON.stringify(listaUsuarios)) // Salva a listaUsuarios no localStorage
-    
+    }
+    listaUsuarios.push(dadosUsuario) // Adiciona o usuário na lista de usuários
+    localStorage.setItem("usuariosCadastrados", JSON.stringify(listaUsuarios)) // Salva a listaUsuarios no localStorage
 }
+
+// 6. Função para carregar os usuários(localStorage), chamar ao carregar
+function carregarUsuarios() {
+    let listaCarregada = []
+
+    if (localStorage.getItem("usuariosCadastrados") != null) {
+        listaCarregada = JSON.parse(localStorage.getItem("usuariosCadastrados"))
+    }
+
+    if (listaCarregada.length == 0) {
+        // Se não tiver nenhum usuário cadastrado, mostrar a mensagem:
+        let tabela = document.getElementById("corpo-tabela")
+        tabela.innerHTML = "Nenhum usuário cadastrado."
+    }
+
+    console.log(listaCarregada);
+}
+
+window.addEventListener("DOMContentLoaded", () => carregarUsuarios())
