@@ -29,6 +29,8 @@ function calcular(event) {
     //Passo 5
     cadastrarUsuario(usuario)
 
+    window.location.reload() // Recarregar a página ao cadastrar o usuário e carregá-lo na lista.
+
 };
 
 // 1.Pegar os valores dos INPUTS
