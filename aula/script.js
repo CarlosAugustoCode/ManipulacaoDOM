@@ -105,10 +105,42 @@ function carregarUsuarios() {
     if (listaCarregada.length == 0) {
         // Se não tiver nenhum usuário cadastrado, mostrar a mensagem:
         let tabela = document.getElementById("corpo-tabela")
-        tabela.innerHTML = "Nenhum usuário cadastrado."
+        
+        // tabela.innerHTML = "Nenhum usuário cadastrado." // Exibe uma mensagem caso não tenha nenhum usuário cadastrado
+
+        tabela.innerHTML = `<tr class="linha-mensagem"><td colspan="6">Nenhum usuário cadastrado ☹️</td></tr>` // Exibe uma mensagem caso não tenha nenhum usuário cadastrado
+    } else {
+        // Montar conteúdo da tabela
+        mostarTabela(listaCarregada)
     }
 
     console.log(listaCarregada);
 }
 
-window.addEventListener("DOMContentLoaded", () => carregarUsuarios())
+window.addEventListener("DOMContentLoaded", () => carregarUsuarios()) // Função de carregar usuários
+
+// 7. Reenderizar o conteúdo da tabela com os usuários cadastrados
+function mostarTabela(listaUsuarios){
+    let tabela = document.getElementById("corpo-tabela")
+    let template = ""
+
+    listaUsuarios.forEach(usuario => {
+        template += `<tr>
+        <td data-cell="nome">${usuario.nome}</td>
+        <td data-cell="altura">${usuario.altura}</td>
+        <td data-cell="peso">${usuario.peso}</td>
+        <td data-cell="valor do IMC">${usuario.imc.toFixed(2)}</td>
+        <td data-cell="classificação do IMC">${usuario.situacaoIMC}</td>
+        <td data-cell="data de cadastro">${usuario.dataCadastro}</td>
+    </tr> `
+    })
+
+    tabela.innerHTML = template; // Exibir a lista dos usuários
+}
+
+// 8. Botão para limpar os registros dos formulários(localStorage)
+    function deletarRegistros() {
+        localStorage.removeItem("usuariosCadastrados") // Remover registros do localStorage
+
+        window.location.reload() // Recarregar a página
+    }
